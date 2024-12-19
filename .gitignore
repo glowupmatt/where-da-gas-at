@@ -1,4 +1,6 @@
 .vscode
+artifacts.json
+dev.db
 
 node_modules
 .env

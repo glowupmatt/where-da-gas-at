@@ -8,14 +8,15 @@ with app.app_context():
     db.create_all()
 
 
-    user1=User(id=1, user='user1', email='user1@gmail.com', password='password')
-    user2=User(id=2, user='user2', email='user2@gmail.com', password='password')
-    user3=User(id=3, user='user3', email='user3@gmail.com', password='password')
-    user4=User(id=4, user='user4', email='user4@gmail.com', password='password')
-    user5=User(id=5, user='user5', email='user5@gmail.com', password='password')
-    user6=User(id=6, user='user6', email='user6@gmail.com', password='password')
-    user7=User(id=7, user='user7', email='user7@gmail.com', password='password')
-    user8=User(id=8, user='user8', email='user8@gmail.com', password='password')
+    user1=User(id=1, user='user1', email='user1@example.com', password='password')
+    user2=User(id=2, user='user2', email='user2@example.com', password='password')
+    user3=User(id=3, user='user3', email='user3@example.com', password='password')
+    user4=User(id=4, user='user4', email='user4@example.com', password='password')
+    user5=User(id=5, user='user5', email='user5@example.com', password='password')
+    user6=User(id=6, user='user6', email='user6@example.com', password='password')
+    user7=User(id=7, user='user7', email='user7@example.com', password='password')
+    user8=User(id=8, user='user8', email='user8@example.com', password='password')
+    user9=User(id=9, user='demo', email='demo@example.com', password='password')
 
     station1=Station(
         id=1, name="station1",lat=123456675,
