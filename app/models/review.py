@@ -17,7 +17,6 @@ class Review(db.Model):
     station = db.relationship("Station", back_populates="review")
 
 
-
     def to_dict(self):
         return {
             "id": self.id,
