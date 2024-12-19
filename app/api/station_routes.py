@@ -9,9 +9,10 @@ station_routes = Blueprint("station", __name__)
 @station_routes.route("/", methods=["GET"])
 @login_required
 def stations():
-    stations = Station.query.all()
-    data = {"stations": {station.id: station.to_dict() for station in stations if station.user_id == current_user.id}}
-    return jsonify(data)
+    if current_user.is_authenticated:
+        stations = Station.query.all()
+        data = {"stations": {station.id: station.to_dict() for station in stations if station.user_id == current_user.id}}
+        return jsonify(data)
 
 
 @station_routes.route("/", methods=["POST"])
@@ -36,7 +37,7 @@ def create_station():
     return form.errors, 401
 
 
-@station_routes.route("/", methods=["PUT"])
+@station_routes.route("/<int:id>", methods=["PUT"])
 @login_required
 def edit_station():
     form = EditStationForm()
