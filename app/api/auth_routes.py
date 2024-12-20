@@ -49,14 +49,14 @@ def sign_up():
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         user = User(
-            username=form.data["user"],
+            user=form.data["user"],
             email=form.data["email"],
             password=form.data["password"],
         )
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
+        return {"user": {user.id: user.to_dict()}}
     return form.errors, 401
 
 
