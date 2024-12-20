@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import station, db
-from app.models import Station
+from app.models import Station, db
 from flask_login import login_required, current_user
 from app.forms import StationForm, EditStationForm
 
@@ -17,6 +16,15 @@ def read_stations():
             for station in stations
             if station.user_id == current_user.id
         }
+    }
+    
+    
+@station_routes.route("/<int:id>", methods=["GET"])
+@login_required
+def read_station(id):
+    station = Station.query.get(id)
+    return {
+        "station": {station.id: station.to_dict()}
     }
 
 
