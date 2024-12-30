@@ -19,7 +19,7 @@ class Review(db.Model, SchemaMixin):
         ),
         nullable=False,
     )
-    review = db.Column(db.Text, nullable=False)
+    text = db.Column(db.Text, nullable=False)
 
     user = db.relationship("User", back_populates="review")
     station = db.relationship("Station", back_populates="review")
@@ -29,5 +29,5 @@ class Review(db.Model, SchemaMixin):
             "id": self.id,
             "user_id": self.user_id,
             "station_id": self.station_id,
-            "review": self.review,
+            "text": self.text,
         }

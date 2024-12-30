@@ -5,5 +5,5 @@ from wtforms.validators import DataRequired
 class ReviewForm(FlaskForm):
     station_id = IntegerField("station_id", validators=[DataRequired()])
     user_id = IntegerField("user_id", validators=[DataRequired()])
-    review = TextAreaField("review", validators=[DataRequired()])
-    sumbit = SubmitField("Submit")
+    text = TextAreaField("text", validators=[DataRequired()])
+    submit = SubmitField("Submit")
