@@ -1,7 +1,6 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required, logout_user
-from app.models import db, User
-
+from app.models import db, King  # Changed from User to King
 user_routes = Blueprint("user", __name__)
 
 

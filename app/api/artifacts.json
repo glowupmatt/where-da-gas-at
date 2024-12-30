@@ -1,0 +1,75 @@
+{
+  "info": {
+    "name": "Auth Flow with CSRF",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get CSRF Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Extract CSRF token from response cookies",
+              "const csrfToken = pm.cookies.get('csrf_token');",
+              "",
+              "// Store CSRF token in environment variable",
+              "pm.environment.set('csrf_token', csrfToken);",
+              "",
+              "// Store any session cookies",
+              "const sessionCookie = pm.cookies.get('session');",
+              "pm.environment.set('session_cookie', sessionCookie);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/auth",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "auth"]
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-CSRF-Token",
+            "value": "{{csrf_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Cookie",
+            "value": "csrf_token={{csrf_token}}; session={{session_cookie}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"user2@example.com\",\"password\":\"password\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/auth/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "auth", "login"]
+        }
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@ from sqlalchemy.sql import text
 
 from app.models import db, Review, undo_table
 from app.models.station import Station
-from app.models.user import User
+from app.models.king import King
 from app.seeds.user import user_seeds
 from app.seeds.station import station_seeds
 
@@ -83,3 +83,5 @@ def seed_review():
 
 def undo_review():
     undo_table("review")
+
+from app.seeds.user import user_seeds

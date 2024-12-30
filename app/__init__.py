@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 
-from .models import db, drop_databases, reset_databases, User
+from .models import db, drop_databases, reset_databases, King
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.review_routes import review_routes
@@ -51,9 +51,10 @@ app.register_blueprint(auth_routes, url_prefix="/api/auth")
 app.register_blueprint(review_routes, url_prefix="/api/review")
 app.register_blueprint(price_routes, url_prefix="/api/price")
 app.register_blueprint(station_routes, url_prefix="/api/station")
-db.init_app(app)
-Migrate(app, db)
+from flask_migrate import Migrate
 
+db.init_app(app)
+migrate = Migrate(app, db)
 # Application Security
 CORS(app)
 

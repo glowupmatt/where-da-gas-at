@@ -19,15 +19,15 @@ class Station(db.Model, SchemaMixin):
     uri = db.Column(db.Text, nullable=False)
     location_id = db.Column(db.String(255), nullable=False)
 
-    user_id = db.Column(
+    king_id = db.Column(
         db.Integer,
         db.ForeignKey(
-            add_prefix_for_prod("user.id"), ondelete="CASCADE"
+            add_prefix_for_prod("king.id"), ondelete="CASCADE"
         ),
         nullable=False,
     )
 
-    user = db.relationship("User", back_populates="station")
+    king = db.relationship("King", back_populates="station")
     review = db.relationship("Review", back_populates="station")
 
     def to_dict(self):
@@ -39,5 +39,5 @@ class Station(db.Model, SchemaMixin):
             "address": self.address,
             "uri": self.uri,
             "location_id": self.location_id,
-            "user_id": self.user_id,
+            "king_id": self.king_id,
         }

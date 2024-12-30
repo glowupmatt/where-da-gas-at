@@ -1,7 +1,6 @@
 from sqlalchemy.sql import text
 
-from app.models import db, User, undo_table
-
+from app.models import db, King, undo_table  # Changed User to King
 user_seeds = [
     {
         "user": "Demo",

@@ -1,6 +1,5 @@
 from flask import Blueprint, request
-from app.models import User, db
-from app.forms import LoginForm
+from app.models import King, db  # Changed from User to Kingfrom app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import (
     current_user,

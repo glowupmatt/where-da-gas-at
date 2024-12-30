@@ -1,7 +1,7 @@
 from sqlalchemy.sql import text
 
 from app.models import db, Station, undo_table
-from app.models.user import User
+from app.models.king import King  # Changed from User to King
 from .user import user_seeds
 
 
