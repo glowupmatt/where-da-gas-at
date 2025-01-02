@@ -5,6 +5,7 @@ from flask_login import (
     logout_user as logout_king,
     login_required,
 )
+from pprint import pprint
 
 from app.forms import LoginForm, SignUpForm
 from app.models import db, King
@@ -56,18 +57,25 @@ def sign_up():
     Creates a new king and logs them in
     """
     form = SignUpForm()
+    print("a" * 70)
     form["csrf_token"].data = request.cookies["csrf_token"]
-    if form.validate_on_submit():
-        king = King(
-            nick=form.data["nick"],
-            email=form.data["email"],
-            password=form.data["password"],
-        )
-        db.session.add(king)
-        db.session.commit()
-        login_king(king)
-        return {"king": {king.id: king.to_dict()}}
-    return form.errors, 401
+    print("b" * 70)
+
+    if not form.validate_on_submit():
+        print("c" * 70)
+        print("auth_routes:sign_up:form.errors")
+        pprint(form.errors)
+        return form.errors, 401
+
+    king = King(
+        nick=form.data["nick"],
+        email=form.data["email"],
+        password=form.data["password"],
+    )
+    db.session.add(king)
+    db.session.commit()
+    login_king(king)
+    return {"king": {king.id: king.to_dict()}}
 
 
 @auth_routes.route("/unauthorized")

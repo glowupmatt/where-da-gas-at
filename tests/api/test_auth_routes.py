@@ -1,32 +1,36 @@
+import pytest
 import requests
 
 from .config import DEMO_KING
 
 
-def test_login_flow():
-    """Test login flow using running server"""
-    # Setup
-    base_url = "http://localhost:8000"
-    session = requests.Session()
+def test_authenticate(client):
+    """test anonymous access"""
+    response = client.get("api/auth/")
+    assert response.status_code == 401
+    assert response.json == {"errors": {"message": "Unauthorized"}}
 
-    # Get CSRF token and session cookie
-    session.get(f"{base_url}/api/auth/")
-    assert "csrf_token" in session.cookies
-    assert "session" in session.cookies
 
-    # Login request
-    login_data = {"email": "demo@example.com", "password": "password"}
-    headers = {"Content-Type": "application/json"}
+def test_signup_success(client):
+    """test successful user signup"""
+    client.get("api/auth/")
+    signup_data = {
+        "nick": "kingifer",
+        "email": "kingeth@example.com",
+        "password": "password",
+    }
 
-    # The session will automatically send both csrf_token and session
-    # cookies
-    login_response = session.post(
-        f"{base_url}/api/auth/login", json=login_data, headers=headers
+    response = client.post(
+        "/api/auth/signup",
+        json=signup_data,
     )
 
-    # Verify login succeeded
-    assert login_response.status_code == 200
-    data = login_response.json()
-    assert data["email"] == DEMO_KING["email"]
-    assert "id" in data
-    assert data["nick"] == DEMO_KING["nick"]
+    assert response.status_code == 200
+    data = response.json
+
+    assert "king" in data
+    king = list(data["king"].values())[0]
+
+    assert king["nick"] == signup_data["nick"]
+    assert king["email"] == signup_data["email"]
+    assert "id" in king
