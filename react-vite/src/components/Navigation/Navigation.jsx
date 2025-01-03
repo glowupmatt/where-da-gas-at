@@ -16,7 +16,7 @@ function Navigation() {
         <li>
           <NavLink to="/" className="logo-container">
             <img
-              src="../public/Logo.ico"
+              src="/Logo.ico"
               className="logo"
               alt="logo"
             />
