@@ -29,7 +29,7 @@ html {
   width: 100%;
 }
 
-html.light {
+/* html.light {
   background-color: white;
   color: black;
   height: 100vh;
@@ -39,4 +39,4 @@ html.dark {
   background-color: black;
   color: green;
   height: 100vh;
-}
+} */
