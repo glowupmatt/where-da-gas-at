@@ -1,4 +1,4 @@
-/* .info-window-display {
+.info-window-display {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -65,4 +65,4 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
-} */
+}

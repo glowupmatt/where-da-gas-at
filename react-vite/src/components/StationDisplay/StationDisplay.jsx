@@ -25,11 +25,11 @@ function StationDisplay() {
     lat: stationInfo.location.latitude,
     lng: stationInfo.location.longitude,
   };
-  console.log(stationInfo);
+
   return (
     <section className="station-display-main-container">
       <div className="image-scroll-track">
-        <StationImageDisplay />
+        {stationInfo.photos && (<StationImageDisplay />)}
       </div>
       <div className="station-data-container">
         <h1>{stationInfo.displayName.text}</h1>
@@ -45,8 +45,7 @@ function StationDisplay() {
               minHeight: "32rem",
             }}
             mapId={
-              import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID ||
-              "e2ea39204ffcffc4"
+              import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID
             }
             zoom={18}
             disableDefaultUI={true}
