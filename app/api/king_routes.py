@@ -99,7 +99,7 @@ def create_current_king_station(station_id):
     db.session.commit()
 
     # indicate success
-    return "", 201
+    return "Posted Successfully", 201
 
 @king_routes.route(
     "/current/station/<string:station_id>", methods=["GET"]
@@ -113,12 +113,29 @@ def get_current_king_station(station_id):
     station = Station.query.get(station_id)
 
     # if there is not, return an error indicating that there is no
-    #  such station
+    # such station
     if not station:
         return {"error": f"station {station_id} does not exist"}, 404
 
+    # check if the current king has the station in its array of saved stations
+    if station not in current_king.saved_stations:
+        return {"error": f"station {station_id} is not saved by the current king"}, 403
     # return the station details
     return {"station": station.to_dict()}, 200
+
+@king_routes.route(
+    "/current/stations", methods=["GET"]
+)
+@login_required
+def get_current_king_stations():
+    """
+    get all stations for the current king
+    """
+    # make sure there is a station with station id.
+    stations = current_king.saved_stations
+    
+    # return the station details
+    return {"stations": [station.to_dict() for station in stations]}, 200
 
 @king_routes.route(
     "/current/station/<string:station_id>", methods=["DELETE"]
