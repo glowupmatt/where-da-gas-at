@@ -51,7 +51,7 @@ function MapComponent() {
   };
 
   useEffect(() => {
-    if (sessionUser.errors) return;
+    if (sessionUser?.errors) return;
 
     const fetchStations = async () => {
       try {
@@ -76,7 +76,7 @@ function MapComponent() {
   }, [sessionUser]);
 
   useEffect(() => {
-    if (sessionUser.errors) return;
+    if (sessionUser?.errors) return;
 
     const postStation = async (station) => {
       const body = {
