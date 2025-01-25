@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { GoogleMapContext } from "../../context/GoogleMapContext";
 import { useGetSelectedStation } from "../../hooks/useGetSelectedStation";
 import "./StationDisplay.css";
@@ -7,16 +7,14 @@ import StationImageDisplay from "./StationDataComponents/StationImageDisplay";
 import PriceOptionsDisplay from "./StationDataComponents/PriceOptionsDisplay";
 import ReviewsDisplay from "./StationDataComponents/ReviewsDisplay";
 import { AdvancedMarker, Map } from "@vis.gl/react-google-maps";
-import { useTheme } from "../../context/ThemeContext";
 
 function StationDisplay() {
   const { id } = useParams();
   const stationInfo = useGetSelectedStation(id);
-  const { theme } = useTheme();
 
-  const [mapId, setMapId] = useState(
-    import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID_DARK_MODE,
-  );
+
+  const mapId = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID_LIGHT_MODE
+
 
   const { setSelectedStation } = useContext(GoogleMapContext);
 
@@ -26,13 +24,6 @@ function StationDisplay() {
     }
   }, [stationInfo, setSelectedStation]);
 
-  useEffect(() => {
-    setMapId(
-      theme === "dark"
-        ? import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID_DARK_MODE
-        : import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID_LIGHT_MODE,
-    );
-  }, [theme]);
 
   if (!stationInfo) return <h1>Loading...</h1>;
   const center = {
@@ -41,7 +32,7 @@ function StationDisplay() {
   };
 
   return (
-    <section className={`station-display-main-container-${theme}`}>
+    <section className={`station-display-main-container-light`}>
       <div className="image-scroll-track">
         {stationInfo.photos && <StationImageDisplay />}
       </div>

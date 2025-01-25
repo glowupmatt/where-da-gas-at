@@ -7,14 +7,13 @@ import Navigation from "../components/Navigation/Navigation";
 import { GoogleMapProvider } from "../context/GoogleMapContext";
 import "../index.css";
 import { APIProvider } from "@vis.gl/react-google-maps";
-import { ThemeProvider, useTheme } from "../context/ThemeContext";
+import { ThemeProvider } from "../context/ThemeContext";
 import ReviewStationProvider from "../context/UserReviewContext";
 import PriceProvider from "../context/PriceContext";
 
 export default function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const theme = useTheme();
 
   useEffect(() => {
     try {
@@ -36,7 +35,7 @@ export default function Layout() {
               <PriceProvider>
                 <ModalProvider>
                   <div className="align-body">
-                    <div className={`main-body-container-${theme}`}>
+                    <div className={`main-body-container-light`}>
                       <Navigation />
                       {isLoaded && <Outlet />}
                     </div>

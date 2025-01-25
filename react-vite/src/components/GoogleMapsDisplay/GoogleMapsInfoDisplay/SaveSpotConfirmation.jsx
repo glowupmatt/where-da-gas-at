@@ -46,8 +46,6 @@ function SaveSpotConfirmation() {
     }
   };
 
-  console.log(message);
-
   if (message) {
     return (
       <div className="modal-body">

@@ -3,7 +3,10 @@ import "./PriceOptionsDisplay.css";
 
 function PriceOptionsDisplay({ stationInfo }) {
   if (stationInfo.types.includes("gas_station")) {
-    const fuelOptions = stationInfo.fuelOptions.fuelPrices;
+    if (!stationInfo.fuelOptions) {
+      return <div className="options-container">No fuel options available</div>;
+    }
+    const fuelOptions = stationInfo.fuelOptions?.fuelPrices;
     return (
       <div className="options-container">
         {fuelOptions.map((fuelOption, index) => {

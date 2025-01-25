@@ -1,14 +1,14 @@
 import { MdImageNotSupported } from "react-icons/md";
 import { useGoogleFetchPhoto } from "../../../hooks/useGoogleFetchPhoto";
 import "./StationImageDisplay.css";
-import { useTheme } from "../../../context/ThemeContext";
+
 
 function StationImageDisplay() {
   const photos = useGoogleFetchPhoto();
-  const { theme } = useTheme();
+
 
   const placeholderImage = (index) => (
-    <div key={index} className={`gas-station-image-${theme}`}>
+    <div key={index} className={`gas-station-image-light`}>
       <MdImageNotSupported />
     </div>
   );
@@ -27,7 +27,7 @@ function StationImageDisplay() {
               <img
                 key={index}
                 src={photo}
-                className="gas-station-image"
+                className="gas-station-image-light"
                 alt={`Gas station ${index}`}
               />
             ) : (
