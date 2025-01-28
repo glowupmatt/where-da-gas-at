@@ -29,7 +29,6 @@ function MapComponent() {
   
 
   const [stations, setStations] = useState([]);
-  console.log("stations", nearbyStations);
   const sessionUser = useSelector((state) => state.session.user);
 
   //This useEffect will run when the map and newCenter is available
@@ -114,7 +113,6 @@ function MapComponent() {
 
       if(existingStationIds.length > 0) {
         for (const station of unsavedStations) {
-          console.log("posting station", station);
           await postStation(station);
         }
       }

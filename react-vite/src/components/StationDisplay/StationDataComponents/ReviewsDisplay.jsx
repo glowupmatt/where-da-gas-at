@@ -134,7 +134,7 @@ function ReviewsDisplay({
             </>
           )}
 
-          {prices
+          {prices && prices
             .filter((price) => price.station_id === stationInfo.id)
             .map((price) => (
               <li className="user-info-display" key={price.id}>
@@ -164,7 +164,7 @@ function ReviewsDisplay({
                 )}
               </li>
             ))}
-          {reviews
+          {reviews && reviews
             .filter((review) => review.station_id === stationInfo.id)
             .map((review) => (
               <li className="user-info-display" key={review.id}>
@@ -172,7 +172,7 @@ function ReviewsDisplay({
                   <FaUser />
                   <p>{review.king_name}</p>
                 </div>
-                <p>{review.text}</p>
+                <p>{review?.text}</p>
 
                 {sessionUser?.id === review.king_id && (
                   <>
@@ -194,7 +194,7 @@ function ReviewsDisplay({
                 )}
               </li>
             ))}
-          {stationInfo.reviews.map((review, index) => (
+          {stationInfo && stationInfo.reviews.map((review, index) => (
             <div key={index} className="review-container">
               <div className="user-info-display">
                 <div className="name-icon-container">
@@ -203,7 +203,7 @@ function ReviewsDisplay({
                 </div>
                 <StarRating rating={review.rating} />
               </div>
-              <p>{review.originalText.text}</p>
+              <p>{review.originalText?.text}</p>
             </div>
           ))}
         </div>
