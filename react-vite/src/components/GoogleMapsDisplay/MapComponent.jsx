@@ -29,6 +29,7 @@ function MapComponent() {
   
 
   const [stations, setStations] = useState([]);
+  console.log("stations", nearbyStations);
   const sessionUser = useSelector((state) => state.session.user);
 
   //This useEffect will run when the map and newCenter is available
@@ -133,7 +134,6 @@ function MapComponent() {
       {/* <button onClick={() => toggleTheme}></button> */}
 
       <Map
-        // onLoad={onLoad}
         onDragend={handleDragEnd}
         style={{ width: "100%", height: "100vh" }}
         defaultCenter={center}
