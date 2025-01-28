@@ -172,7 +172,7 @@ function ReviewsDisplay({
                   <FaUser />
                   <p>{review.king_name}</p>
                 </div>
-                <p>{review?.text}</p>
+                <p>{review?.text ?? ""}</p>
 
                 {sessionUser?.id === review.king_id && (
                   <>
@@ -203,7 +203,7 @@ function ReviewsDisplay({
                 </div>
                 <StarRating rating={review.rating} />
               </div>
-              <p>{review.originalText?.text}</p>
+              <p>{review.originalText?.text ?? ""}</p>
             </div>
           ))}
         </div>
