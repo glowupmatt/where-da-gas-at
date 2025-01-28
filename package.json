@@ -16,7 +16,8 @@
     "prettier": "^3.4.2"
   },
   "dependencies": {
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "where-da-gas-at": "file:"
   },
   "prettier": {
     "proseWrap": "always",

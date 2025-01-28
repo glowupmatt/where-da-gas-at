@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import "./MapComponent.css";
 import GoogleMapsNearByLocations from "./GoogleMapsNearByLocations";
 import InfoWindowComponent from "./InfoWindowComponent";
-import { useTheme } from "../../context/ThemeContext";
+
 import { useModal } from "../../context/Modal";
 import LoginFormModal from "../LoginFormModal";
 
@@ -23,13 +23,13 @@ function MapComponent() {
     setZoom,
   } = useContext(GoogleMapContext);
 
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
   const { signedUp } = useModal();
-  const [mapId, setMapId] = useState(
-    import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID_DARK_MODE,
-  );
+  const mapId = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID_LIGHT_MODE
+  
 
   const [stations, setStations] = useState([]);
+  console.log("stations", nearbyStations);
   const sessionUser = useSelector((state) => state.session.user);
 
   //This useEffect will run when the map and newCenter is available
@@ -39,13 +39,13 @@ function MapComponent() {
     }
   }, [map, newCenter, center]);
 
-  useEffect(() => {
-    setMapId(
-      theme === "dark"
-        ? import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID_DARK_MODE
-        : import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID_LIGHT_MODE,
-    );
-  }, [theme]);
+  // useEffect(() => {
+  //   setMapId(
+  //     theme === "dark"
+  //       ? import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID_DARK_MODE
+  //       : import.meta.env.VITE_REACT_APP_GOOGLE_MAP_ID_LIGHT_MODE,
+  //   );
+  // }, [theme]);
 
   const handleDragEnd = () => {
     if (map) {
@@ -99,9 +99,6 @@ function MapComponent() {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-
-        const data = await res.json();
-        console.log("Station saved successfully:", data);
       } catch (error) {
         console.error("Failed to post station:", error);
       }
@@ -111,19 +108,20 @@ function MapComponent() {
       const existingStationIds = stations.map(
         (station) => station.id,
       );
-      console.log("Existing station IDs:", existingStationIds);
       const unsavedStations = nearbyStations.filter(
         (station) => !existingStationIds.includes(station.id),
       );
 
-      console.log("Unsaved stations:", unsavedStations);
-      for (const station of unsavedStations) {
-        await postStation(station);
+      if(existingStationIds.length > 0) {
+        for (const station of unsavedStations) {
+          console.log("posting station", station);
+          await postStation(station);
+        }
       }
+
     };
 
     postUnsavedStations();
-    console.log("sessionUser:", sessionUser);
   }, [nearbyStations, sessionUser, stations]);
 
   return (
@@ -136,7 +134,6 @@ function MapComponent() {
       {/* <button onClick={() => toggleTheme}></button> */}
 
       <Map
-        // onLoad={onLoad}
         onDragend={handleDragEnd}
         style={{ width: "100%", height: "100vh" }}
         defaultCenter={center}
